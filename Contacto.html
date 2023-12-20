@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peluquería Canina</title>
+    <!-- Agrega enlaces a tus estilos CSS aquí -->
+</head>
+<body>
+
+    <header>
+        <h1>Bienvenido a [Nombre de tu Peluquería Canina]</h1>
+        <!-- Agrega un menú de navegación si es necesario -->
+    </header>
+
+    <section id="contact">
+        <h2>Contacto</h2>
+
+        <div class="contact-info">
+            <p>¡Estamos aquí para ayudarte! Contáctanos para programar una cita o si tienes alguna pregunta.</p>
+            <p>Dirección: [Tu Dirección]</p>
+            <p>Teléfono: [Tu Número de Teléfono]</p>
+            <p>Correo Electrónico: [Tu Correo Electrónico]</p>
+        </div>
+
+        <!-- Agrega un formulario de contacto si lo deseas -->
+        <form action="procesar_formulario.php" method="post">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo" required>
+
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" required></textarea>
+
+            <button type="submit">Enviar Mensaje</button>
+        </form>
+
+    </section>
+
+    <!-- Otras secciones (sobre nosotros, servicios, galería, testimonios, consejos, etc.) -->
+
+    <footer>
+        <p>&copy; 2023 [Nombre de tu Peluquería Canina]. Todos los derechos reservados.</p>
+        <!-- Agrega enlaces a tus redes sociales aquí -->
+    </footer>
+
+</body>
+</html>

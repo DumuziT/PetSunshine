@@ -3,50 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peluquería Canina</title>
-    <!-- Agrega enlaces a tus estilos CSS aquí -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        input {
+            width: 100%;
+            padding: 5px;
+        }
+
+        .eliminarFila {
+            display: inline-block;
+            background-color: #f44336;
+            color: white;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .agregarFila {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .totalNeto {
+            font-weight: bold;
+        }
+    </style>
+    <title>Tu Página Web</title>
 </head>
 <body>
 
-    <header>
-        <h1>Bienvenido a [Nombre de tu Peluquería Canina]</h1>
-        <!-- Agrega un menú de navegación si es necesario -->
-    </header>
+    <!-- Tabla para Materiales -->
+    <table id="tablaMateriales">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Material</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Precio Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="numeroFila">1</td>
+                <td><input type="text" class="material" placeholder="Ingrese material"></td>
+                <td><input type="number" class="cantidad" placeholder="Ingrese cantidad"></td>
+                <td><input type="number" class="precioUnitario" placeholder="Ingrese precio unitario"></td>
+                <td><input type="text" class="precioTotal" readonly></td>
+                <td><button class="eliminarFila" onclick="eliminarFila(this)">Eliminar</button></td>
+            </tr>
+            <!-- Puedes agregar más filas según tus necesidades -->
+            <tr class="totalNeto">
+                <td colspan="4">Total Neto Materiales</td>
+                <td><input type="text" id="totalNetoMateriales" readonly></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 
-    <section id="about">
-        <h2>Sobre Nosotros</h2>
-        <p>[Información sobre ti y tu experiencia]</p>
-    </section>
+    <button class="agregarFila" onclick="agregarFila('tablaMateriales')">Agregar fila Materiales</button>
 
-    <section id="services">
-        <h2>Nuestros Servicios</h2>
-        <!-- Lista detallada de servicios -->
-    </section>
+    <!-- Tabla para Trabajo -->
+    <table id="tablaTrabajo">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Trabajo</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Precio Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="numeroFila">1</td>
+                <td><input type="text" class="trabajo" placeholder="Ingrese trabajo"></td>
+                <td><input type="number" class="cantidad" placeholder="Ingrese cantidad"></td>
+                <td><input type="number" class="precioUnitario" placeholder="Ingrese precio unitario"></td>
+                <td><input type="text" class="precioTotal" readonly></td>
+                <td><button class="eliminarFila" onclick="eliminarFila(this)">Eliminar</button></td>
+            </tr>
+            <!-- Puedes agregar más filas según tus necesidades -->
+            <tr class="totalNeto">
+                <td colspan="4">Total Neto Trabajo</td>
+                <td><input type="text" id="totalNetoTrabajo" readonly></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 
-    <section id="gallery">
-        <h2>Galería</h2>
-        <!-- Galería de imágenes de tus trabajos -->
-    </section>
+    <button class="agregarFila" onclick="agregarFila('tablaTrabajo')">Agregar fila Trabajo</button>
 
-    <section id="testimonials">
-        <h2>Testimonios</h2>
-        <!-- Testimonios de clientes satisfechos -->
-    </section>
+    <script>
+        // Función para calcular el Precio Total
+        function calcularPrecioTotal(row) {
+            const cantidad = row.querySelector('.cantidad').value;
+            const precioUnitario = row.querySelector('.precioUnitario').value;
+            const precioTotal = cantidad * precioUnitario;
+            row.querySelector('.precioTotal').value = isNaN(precioTotal) ? '' : precioTotal.toFixed(2);
+            calcularTotalNeto(row.closest('table'));
+        }
 
-    <section id="blog">
-        <h2>Consejos de Cuidado</h2>
-        <!-- Blog con consejos sobre el cuidado de mascotas -->
-    </section>
+        // Función para calcular el Total Neto
+        function calcularTotalNeto(table) {
+            const preciosTotales = table.querySelectorAll('.precioTotal');
+            let totalNeto = 0;
+            preciosTotales.forEach(precioTotal => {
+                const precio = parseFloat(precioTotal.value);
+                if (!isNaN(precio)) {
+                    totalNeto += precio;
+                }
+            });
 
-    <section id="contact">
-        <h2>Contacto</h2>
-        <!-- Formulario de contacto y detalles de contacto -->
-    </section>
+            const totalNetoInput = table.querySelector('.totalNeto input');
+            totalNetoInput.value = totalNeto.toFixed(2);
+        }
 
-    <footer>
-        <p>&copy; 2023 [Nombre de tu Peluquería Canina]. Todos los derechos reservados.</p>
-        <!-- Agrega enlaces a tus redes sociales aquí -->
-    </footer>
+        // Función para agregar fila
+        function agregarFila(tablaId) {
+            const table = document.getElementById(tablaId);
+            const tbody = table.querySelector('tbody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td class="numeroFila">${tbody.children.length + 1}</td>
+                <td><input type="text" class="material" placeholder="Ingrese material"></td>
+                <td><input type="number" class="cantidad" placeholder="Ingrese cantidad"></td>
+                <td><input type="number" class="precioUnitario" placeholder="Ingrese precio unitario"></td>
+                <td><input type="text" class="precioTotal" readonly></td>
+                <td><button class="eliminarFila" onclick="eliminarFila(this)">Eliminar</button></td>
+            `;
+            tbody.insertBefore(newRow, tbody.lastElementChild);
+            actualizarNumerosFilas(table);
+            calcularTotalNeto(table);
+        }
+
+        // Función para eliminar una fila
+        function eliminarFila(button) {
+            const row = button.closest('tr');
+            const table = row.closest('table');
+            row.parentNode.removeChild(row);
+            actualizarNumerosFilas(table);
+            calcularTotalNeto(table);
+        }
+
+        // Función para actualizar los números de las filas
+        function actualizarNumerosFilas(table) {
+            const numerosFilas = table.querySelectorAll('.numeroFila');
+            numerosFilas.forEach((numero, index) => {
+                numero.textContent = index + 1;
+            });
+        }
+
+        // Agrega un evento para calcular el Precio Total cuando cambian los valores
+        document.addEventListener('input', function (event) {
+            if (event.target.classList.contains('cantidad') || event.target.classList.contains('precioUnitario')) {
+                calcularPrecioTotal(event.target.closest('tr'));
+            }
+        });
+    </script>
 
 </body>
 </html>
+

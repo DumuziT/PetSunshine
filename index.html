@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,7 +66,6 @@
     </style>
     <title>Tu Página Web</title>
 </head>
-
 <body>
 
     <!-- Tabla para Materiales -->
@@ -102,7 +100,7 @@
             </tbody>
         </table>
 
-        <button type="button" class="agregarFila" onclick="agregarFila('tablaMateriales')">Agregar fila Materiales</button>
+        <button type="button" class="agregarFila" onclick="agregarFilaMateriales('tablaMateriales')">Agregar fila Materiales</button>
 
         <!-- Tabla para Trabajo -->
         <table id="tablaTrabajo">
@@ -135,7 +133,7 @@
             </tbody>
         </table>
 
-        <button type="button" class="agregarFila" onclick="agregarFila('tablaTrabajo')">Agregar fila Trabajo</button>
+        <button type="button" class="agregarFila" onclick="agregarFilaTrabajo('tablaTrabajo')">Agregar fila Trabajo</button>
         <button type="submit" class="enviarDatos">Enviar Datos</button>
     </form>
 
@@ -164,8 +162,8 @@
             totalNetoInput.value = totalNeto.toFixed(2);
         }
 
-        // Función para agregar fila
-        function agregarFila(tablaId) {
+        // Función para agregar fila materiales
+        function agregarFilaMateriales(tablaId) {
             const table = document.getElementById(tablaId);
             const tbody = table.querySelector('tbody');
             const newRow = document.createElement('tr');
@@ -177,6 +175,26 @@
                 <td><input type="number" name="CantidadMateriales[]" class="cantidadMaterial" placeholder="Ingrese cantidad"></td>
                 <td><input type="number" name="PrecioUnitarioMateriales[]" class="precioUnitarioMaterial" placeholder="Ingrese precio unitario"></td>
                 <td><input type="text" name="PrecioTotalMateriales[]" class="precioTotal" readonly></td>
+                <td><button type="button" class="eliminarFila" onclick="eliminarFila(this)">Eliminar</button></td>
+            `;
+            tbody.insertBefore(newRow, tbody.lastElementChild);
+            actualizarNumerosFilas(table);
+            calcularTotalNeto(table);
+        }
+
+        // Función para agregar fila trabajo
+        function agregarFilaTrabajo(tablaId) {
+            const table = document.getElementById(tablaId);
+            const tbody = table.querySelector('tbody');
+            const newRow = document.createElement('tr');
+            const numeroFila = tbody.children.length + 1;
+
+            newRow.innerHTML = `
+                <td><input type="text" name="FilaTrabajo[]" class="numeroFila" value="${numeroFila}" readonly></td>
+                <td><input type="text" name="Trabajo[]" class="material" placeholder="Ingrese material"></td>
+                <td><input type="number" name="CantidadTrabajo[]" class="cantidadMaterial" placeholder="Ingrese cantidad"></td>
+                <td><input type="number" name="PrecioUnitarioTrabajo[]" class="precioUnitarioMaterial" placeholder="Ingrese precio unitario"></td>
+                <td><input type="text" name="PrecioTotalTrabajo[]" class="precioTotal" readonly></td>
                 <td><button type="button" class="eliminarFila" onclick="eliminarFila(this)">Eliminar</button></td>
             `;
             tbody.insertBefore(newRow, tbody.lastElementChild);
@@ -209,9 +227,5 @@
             }
         });
     </script>
-
 </body>
-
 </html>
-
-

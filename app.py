@@ -38,7 +38,6 @@ def procesar_formulario():
 
     return 'Datos recibidos correctamente'
 
+
 if __name__ == '__main__':
     app.run(debug=True)
-
-
